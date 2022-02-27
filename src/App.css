@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Nunito:wght@300;600;800&family=Roboto:wght@300;400;700&display=swap");
+
+:root {
+  --blue: #287094;
+  --whiteish-text: #f6f6f6;
+  --greyish-text: #d4d4ce;
+  --blackish-text: #0e3746;
+  --red: #be2623;
+  --pink: #d62869;
+  --orange: #fa5f1a;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --color-bg: #f6f6f6;
+  --color-text: #0e3746;
+  --color-item: #fff;
+  font-family: "Roboto", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: all 0.3s linear;
+}
+
+body.dark {
+  --color-bg: #022346;
+  --color-text: #d4d4ce;
+  --color-item: #334970;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Navigation */
+.navigation-wrapper {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  border-top: 2px solid var(--blue);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: var(--color-item);
+  color: var(--color-text);
+  padding: 0 0.3rem;
+}
+
+.navigation-wrapper a {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.navigation-wrapper a:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.navigation-wrapper a.active {
+  user-select: none;
+  cursor: default;
+}
+
+.navigation-wrapper a.active:hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navigation-wrapper .navi-home,
+.navigation-wrapper .navi-right {
+  display: flex;
+  align-items: center;
+}
+
+.navigation-wrapper .settings,
+.navigation-wrapper .dark-mode {
+  display: flex;
+  align-items: center;
+}
+
+.navi-home-items {
+  display: flex;
+  align-items: center;
+}
+
+.navi-home svg {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.5rem;
+}
+
+.navi-right {
+  gap: 1rem;
+}
+
+.settings a {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.settings-items {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dark-toggle {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0.3rem;
+}
+
+.dark-toggle span {
+  display: none;
+  white-space: nowrap;
+}
+
+@media (min-width: 375px) {
+  /* navigation */
+  .dark-toggle {
+    gap: 0.3rem;
+  }
+  .dark-toggle span {
+    display: block;
+  }
+}
+
+@media (min-width: 576px) {
+  /* navigation */
+  .navigation-wrapper {
+    position: relative;
+    border-top: none;
+    border-radius: 0;
+    border-bottom: 2px solid var(--blue);
+    padding: 0 1rem;
+  }
+  .dark-toggle {
+    padding-right: 0;
+  }
+}
