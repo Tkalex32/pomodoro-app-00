@@ -54,7 +54,7 @@ const Navigation = () => {
               "settings-items" + (isActive ? " active" : "")
             }
           >
-            <AiFillSetting />
+            {mode === "dark" ? <AiFillSetting /> : <AiOutlineSetting />}
             <span>Settings</span>
           </NavLink>
         </div>
