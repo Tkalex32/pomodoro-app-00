@@ -1,41 +1,51 @@
+import { useContext } from "react";
 import ReactSlider from "react-slider";
+import { SettingsContext } from "../../context/SettingsContext";
 
 const Settings = () => {
+  const { workMin, shortMin, longMin, setWork, setShort, setLong, setDefault } =
+    useContext(SettingsContext);
+
   return (
     <main>
       <div className="title">Settings</div>
       <div className="slider-wrapper">
-        <label htmlFor="">Work:</label>
+        <label htmlFor="">Work: {workMin}:00 min</label>
         <ReactSlider
           className="slider"
           thumbClassName="thumb"
           trackClassName="track"
-          value={25}
+          value={workMin}
+          onChange={(newValue) => setWork(newValue)}
           max={45}
           min={1}
         />
 
-        <label htmlFor="">Short break:</label>
+        <label htmlFor="">Short break: {shortMin}:00 min</label>
         <ReactSlider
           className="slider short"
           thumbClassName="thumb short"
           trackClassName="track"
-          value={5}
+          value={shortMin}
+          onChange={(newValue) => setShort(newValue)}
           max={20}
           min={1}
         />
 
-        <label htmlFor="">Long break:</label>
+        <label htmlFor="">Long break: {longMin}:00 min</label>
         <ReactSlider
           className="slider long"
           thumbClassName="thumb long"
           trackClassName="track"
-          value={20}
+          value={longMin}
+          onChange={(newValue) => setLong(newValue)}
           max={30}
           min={1}
         />
       </div>
-      <button className="save-button">Save</button>
+      <button className="save-button" onClick={setDefault}>
+        Reset
+      </button>
     </main>
   );
 };

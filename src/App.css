@@ -163,9 +163,9 @@ main .buttons {
   width: 100%;
 }
 
-main .gap {
+/* main .gap {
   width: min(10vw, 40px);
-}
+} */
 
 .progress-bar {
   width: min(90vw, 350px);
@@ -187,6 +187,10 @@ main .gap {
 .button:hover {
   opacity: 1;
   transform: var(--translateX2);
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: var(--color-text);
 }
 
 /* settings */
