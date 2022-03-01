@@ -148,12 +148,23 @@ main {
   align-items: center;
 }
 
+main .title-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0 auto 2rem;
+}
+
 main .title {
   font-family: "Nunito", sans-serif;
   font-weight: 800;
   text-align: center;
   font-size: 2rem;
-  margin: 1rem auto 2rem;
+}
+
+main .info {
+  cursor: pointer;
+  margin-left: 0.5em;
+  line-height: 1rem;
 }
 
 main .buttons {
@@ -162,10 +173,6 @@ main .buttons {
   justify-content: center;
   width: 100%;
 }
-
-/* main .gap {
-  width: min(10vw, 40px);
-} */
 
 .progress-bar {
   width: min(90vw, 350px);
@@ -191,6 +198,48 @@ main .buttons {
 
 .CircularProgressbar .CircularProgressbar-text {
   fill: var(--color-text);
+}
+
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #022346c8;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+
+.modal-content {
+  position: relative;
+  background: var(--color-item);
+  width: min(95vw, 380px);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.modal-title {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 1rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.modal-text p {
+  margin: 0.5rem 0 0.5rem;
+}
+.close-btn {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  font-size: 1.25em;
+  cursor: pointer;
 }
 
 /* settings */
@@ -238,6 +287,13 @@ main .buttons {
 
 .save-button:hover {
   transform: var(--translateX2);
+}
+
+@media (min-width: 350px) {
+  /* modal */
+  .modal-title {
+    padding: 0 1rem 1rem;
+  }
 }
 
 @media (min-width: 375px) {

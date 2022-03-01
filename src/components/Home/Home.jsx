@@ -1,14 +1,20 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import { FaPlayCircle, FaPauseCircle, FaStopCircle } from "react-icons/fa";
+import { FaPlayCircle, FaPauseCircle, FaInfoCircle } from "react-icons/fa";
 import "react-circular-progressbar/dist/styles.css";
 import { SettingsContext } from "../../context/SettingsContext";
+import Info from "../Info/Info";
 
 const Home = () => {
   const { workMin, shortMin, longMin } = useContext(SettingsContext);
   const [isPaused, setIsPaused] = useState(true);
   const [mode, setMode] = useState("work");
   const [secondsLeft, setSecondsLeft] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModal = () => {
+    setShowModal(!showModal);
+  };
 
   const secondsLeftRef = useRef(secondsLeft);
   const isPausedRef = useRef(isPaused);
@@ -52,7 +58,13 @@ const Home = () => {
 
   return (
     <main>
-      <div className="title">Pomodoro Timer</div>
+      {showModal ? <Info handleModal={handleModal} /> : null}
+      <div className="title-wrapper">
+        <div className="title">Pomodoro Timer</div>
+        <div className="info">
+          <FaInfoCircle onClick={() => handleModal()} />
+        </div>
+      </div>
       <div className="progress-bar">
         <CircularProgressbar
           value={percentage}
