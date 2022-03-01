@@ -17,8 +17,8 @@ const Settings = () => {
           trackClassName="track"
           value={workMin}
           onChange={(newValue) => setWork(newValue)}
-          max={45}
-          min={1}
+          max={40}
+          min={20}
         />
 
         <label htmlFor="">Short break: {shortMin}:00 min</label>
@@ -28,8 +28,8 @@ const Settings = () => {
           trackClassName="track"
           value={shortMin}
           onChange={(newValue) => setShort(newValue)}
-          max={20}
-          min={1}
+          max={10}
+          min={5}
         />
 
         <label htmlFor="">Long break: {longMin}:00 min</label>
@@ -40,7 +40,7 @@ const Settings = () => {
           value={longMin}
           onChange={(newValue) => setLong(newValue)}
           max={30}
-          min={1}
+          min={15}
         />
       </div>
       <button className="save-button" onClick={setDefault}>

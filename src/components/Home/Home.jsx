@@ -1,15 +1,18 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { FaPlayCircle, FaPauseCircle, FaInfoCircle } from "react-icons/fa";
-import "react-circular-progressbar/dist/styles.css";
+import { RiRestartFill } from "react-icons/ri";
 import { SettingsContext } from "../../context/SettingsContext";
 import Info from "../Info/Info";
+import DisplaySet from "../DisplaySet/DisplaySet";
+import ProgressCircle from "../ProgressCircle/ProgressCircle";
+import "react-circular-progressbar/dist/styles.css";
 
 const Home = () => {
   const { workMin, shortMin, longMin } = useContext(SettingsContext);
   const [isPaused, setIsPaused] = useState(true);
   const [mode, setMode] = useState("work");
   const [secondsLeft, setSecondsLeft] = useState(0);
+  const [count, setCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   const handleModal = () => {
@@ -19,6 +22,7 @@ const Home = () => {
   const secondsLeftRef = useRef(secondsLeft);
   const isPausedRef = useRef(isPaused);
   const modeRef = useRef(mode);
+  const countRef = useRef(count);
 
   const tick = () => {
     secondsLeftRef.current--;
@@ -27,8 +31,18 @@ const Home = () => {
 
   useEffect(() => {
     const switchMode = () => {
-      const nextMode = modeRef.current === "work" ? "break" : "work";
-      const nextSeconds = (nextMode === "work" ? workMin : shortMin) * 60;
+      const nextMode =
+        (modeRef.current === "work") & (countRef.current < 7)
+          ? "break"
+          : modeRef.current === "work"
+          ? "long"
+          : "work";
+      const nextSeconds =
+        (nextMode === "work"
+          ? workMin
+          : nextMode === "break"
+          ? shortMin
+          : longMin) * 60;
       setMode(nextMode);
       modeRef.current = nextMode;
       setSecondsLeft(nextSeconds);
@@ -45,10 +59,31 @@ const Home = () => {
       if (secondsLeftRef.current === 0) {
         return switchMode();
       }
+      if (countRef.current === 9) {
+        setMode("end");
+        modeRef.current = "end";
+        setIsPaused(true);
+        isPausedRef.current = true;
+        return;
+      }
       tick();
     }, 1000);
     return () => clearInterval(interval);
   }, [workMin, shortMin, longMin]);
+
+  useEffect(() => {
+    countRef.current++;
+    setCount(countRef.current);
+  }, [mode]);
+
+  const handleReset = () => {
+    setMode("work");
+    modeRef.current = "work";
+    setSecondsLeft(workMin * 60);
+    secondsLeftRef.current = workMin * 60;
+    setCount(0);
+    countRef.current = 0;
+  };
 
   const totalSeconds = mode === "work" ? workMin * 60 : shortMin * 60;
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
@@ -65,20 +100,15 @@ const Home = () => {
           <FaInfoCircle onClick={() => handleModal()} />
         </div>
       </div>
-      <div className="progress-bar">
-        <CircularProgressbar
-          value={percentage}
-          text={`${minutes}:${seconds}`}
-          strokeWidth={4}
-          counterClockwise
-          styles={buildStyles({
-            pathColor: mode === "work" ? "#f54e4e" : "#4aec8c",
-            trailColor: "#c5c5c51a",
-          })}
-        />
-      </div>
+      <DisplaySet count={count} />
+      <ProgressCircle
+        percentage={percentage}
+        minutes={minutes}
+        seconds={seconds}
+        mode={mode}
+      />
       <div className="buttons">
-        {isPaused ? (
+        {isPaused & (mode !== "end") ? (
           <FaPlayCircle
             className="button"
             onClick={() => {
@@ -86,6 +116,8 @@ const Home = () => {
               isPausedRef.current = false;
             }}
           />
+        ) : (mode === "end") & isPaused ? (
+          <RiRestartFill className="button reset" onClick={handleReset} />
         ) : (
           <FaPauseCircle
             className="button"

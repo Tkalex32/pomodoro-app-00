@@ -6,13 +6,6 @@
   --circle-green: #4aec8c;
   --translateX2: translateY(-2px);
   --transition-a3lin: all 0.3s linear;
-
-  --whiteish-text: #f6f6f6;
-  --greyish-text: #d4d4ce;
-  --blackish-text: #0e3746;
-  --red: #be2623;
-  --pink: #d62869;
-  --orange: #fa5f1a;
 }
 
 *,
@@ -25,9 +18,11 @@
 
 body {
   --color-bg: #f6f6f6;
+  --color-bg-inverse: #022346;
   --color-text: #0e3746;
   --color-item: #fff;
   --color-input: hsl(0, 0%, 52%);
+  --pill-text: #004055;
   --shadow: 0.125rem 0.125rem 0.25rem var(--color-input);
   font-family: "Roboto", sans-serif;
   background: var(--color-bg);
@@ -37,9 +32,11 @@ body {
 
 body.dark {
   --color-bg: #022346;
+  --color-bg-inverse: #f6f6f6;
   --color-text: #d4d4ce;
   --color-item: #334970;
   --color-input: hsl(0, 0%, 30%);
+  --pill-text: #004055;
   --shadow: 0.125rem 0.125rem 0.25rem black;
   background: var(--color-bg);
   color: var(--color-text);
@@ -196,8 +193,8 @@ main .buttons {
   transform: var(--translateX2);
 }
 
-.CircularProgressbar .CircularProgressbar-text {
-  fill: var(--color-text);
+.button.reset {
+  fill: var(--color-bg-inverse);
 }
 
 .modal-wrapper {
@@ -240,6 +237,77 @@ main .buttons {
   right: 0.2em;
   font-size: 1.25em;
   cursor: pointer;
+}
+
+/* progress circle */
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: var(--color-text);
+}
+
+.progress-text-title {
+  font-size: 1.3rem;
+}
+
+.progress-text-info {
+  width: 80%;
+}
+
+/* set display */
+.set-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: min(95vw, 390px);
+}
+
+.set-wrapper > div {
+  flex: 1;
+  text-align: center;
+}
+
+.inner-wrapper {
+  display: flex;
+}
+
+.work-bar,
+.break-bar {
+  flex: 1;
+  text-transform: capitalize;
+  font-weight: 700;
+  padding: 1px 2px;
+  margin: 1px 1px;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  background: var(--color-item);
+}
+
+.work-bar {
+  color: var(--circle-red);
+}
+
+.break-bar {
+  color: var(--circle-green);
+}
+
+.work-bar.active {
+  color: var(--color-text);
+  border: 2px solid var(--circle-red);
+}
+
+.work-bar.done {
+  color: var(--pill-text);
+  background: var(--circle-red);
+}
+
+.break-bar.active {
+  color: var(--color-text);
+  border: 2px solid var(--circle-green);
+}
+
+.break-bar.done {
+  color: var(--pill-text);
+  background: var(--circle-green);
 }
 
 /* settings */
@@ -317,5 +385,9 @@ main .buttons {
   }
   .dark-toggle {
     padding-right: 0;
+  }
+  /* set display */
+  .set-wrapper {
+    flex-direction: row;
   }
 }
